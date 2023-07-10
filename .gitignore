@@ -3,3 +3,8 @@ prototype
 *.bc
 .gdb_history
 .vscode
+*.sfo
+*.elf
+*.velf
+*.vpk
+*.bin

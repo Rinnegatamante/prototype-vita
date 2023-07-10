@@ -308,6 +308,8 @@ PROFILE_START_SLICE("ENGINE_Pump");
 							if(!bJoystickSupported)
 								break;
 							int b = event.jbutton.button;
+							if (b == 1) b = 2;
+							else if (b == 2) b = 1;
 							if(b<20)
 								KeyStateAlltered(JOYSTICK_BUTTON+b, true);				
 						}
@@ -317,6 +319,8 @@ PROFILE_START_SLICE("ENGINE_Pump");
 							if(!bJoystickSupported)
 								break;
 							int b = event.jbutton.button;
+							if (b == 1) b = 2;
+							else if (b == 2) b = 1;
 							if(b<20)
 								KeyStateAlltered(JOYSTICK_BUTTON+b, false);				
 						}

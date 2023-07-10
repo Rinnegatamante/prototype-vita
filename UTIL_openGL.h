@@ -3,8 +3,12 @@
 #ifdef _WIN32
 #include <windows.h>
 #endif
+#ifdef __vita__
+#include <vitaGL.h>
+#else
 #include <GL/gl.h>
 #include <GL/glext.h>
+#endif
 //#include <gl/wglext.h>
 #include <cstring>
 #include <sstream>

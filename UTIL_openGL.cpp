@@ -86,7 +86,9 @@ namespace UTIL_GL
 			GLuint ID;
 			glGenTextures(1, &ID);
 			glBindTexture(GL_TEXTURE_2D, ID);
+#ifndef __vita__
 			glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
+#endif
 			switch(bpp)
 			{
 			case 3:
@@ -99,7 +101,9 @@ namespace UTIL_GL
 				glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,data);
 				break;
 			}
-
+#ifdef __vita__
+			glGenerateMipmap(GL_TEXTURE_2D);
+#endif
 			stbi_image_free(data);
 
 			return ID;

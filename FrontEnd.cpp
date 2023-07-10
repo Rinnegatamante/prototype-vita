@@ -728,7 +728,11 @@ void Engine::RenderIntro(const float interp)
 	mFont1.Print(" The Prototype MarkI.\"",10,600-s);
 	glDisable(GL_TEXTURE_2D);
 	UTIL_GL::GL2D::SetOrtho(640,480);
+#ifdef __vita__
+	UTIL_GL::SetBlend(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+#else
 	UTIL_GL::SetBlend(GL_SRC_ALPHA,GL_COLOR);
+#endif
 	glColor4f(0,0,0,1);
 	glBegin(GL_QUADS);
 	glVertex2f(0,0);
@@ -832,7 +836,11 @@ void Engine::RenderIntro3(const float interp)
 
 	glDisable(GL_TEXTURE_2D);
 	UTIL_GL::GL2D::SetOrtho(640,480);
+#ifdef __vita__
+	UTIL_GL::SetBlend(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+#else
 	UTIL_GL::SetBlend(GL_SRC_ALPHA,GL_COLOR);
+#endif
 	glColor4f(0,0,0,1);
 	glBegin(GL_QUADS);
 	glVertex2f(0,0);
@@ -902,7 +910,11 @@ void Engine::RenderIntro4(const float interp)
 
 	glDisable(GL_TEXTURE_2D);
 	UTIL_GL::GL2D::SetOrtho(640,480);
+#ifdef __vita__
+	UTIL_GL::SetBlend(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+#else
 	UTIL_GL::SetBlend(GL_SRC_ALPHA,GL_COLOR);
+#endif
 	glColor4f(0,0,0,1);
 	glBegin(GL_QUADS);
 	glVertex2f(0,0);
@@ -1182,7 +1194,11 @@ void Engine::RenderCongratulations(const float interp)
 	mFont1.Print(" 'The Prototype MarkI' .\"",40,600-s);
 	glDisable(GL_TEXTURE_2D);
 	UTIL_GL::GL2D::SetOrtho(640,480);
+#ifdef __vita__
+	UTIL_GL::SetBlend(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+#else
 	UTIL_GL::SetBlend(GL_SRC_ALPHA,GL_COLOR);
+#endif
 	glColor4f(0,0,0,1);
 	glBegin(GL_QUADS);
 	glVertex2f(0,0);

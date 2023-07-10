@@ -347,6 +347,28 @@ void Engine::RenderGame(float interp)
 		mFont1.SetColor(1,1,1,1);
 		mFont1.Print("PAUSED",320,210);
 	}
+#ifdef __vita__
+	int dims[4];
+	glGetIntegerv(GL_VIEWPORT, dims);
+	glViewport(0, 0, 960, 544);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0, 960, 544, 0, -1, 1);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glColor4f(0,0,0,1);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0,0); glVertex2f(0,0);
+	glTexCoord2f(1,0); glVertex2f(dims[0],0);
+	glTexCoord2f(1,1); glVertex2f(dims[0],544);
+	glTexCoord2f(0,1); glVertex2f(0,544);
+	glTexCoord2f(0,0); glVertex2f(dims[0] + dims[2],0);
+	glTexCoord2f(1,0); glVertex2f(960,0);
+	glTexCoord2f(1,1); glVertex2f(960,544);
+	glTexCoord2f(0,1); glVertex2f(dims[0] + dims[2],544);
+	glEnd();
+	glViewport(dims[0], dims[1], dims[2], dims[3]);
+#endif
 }
 //================================================================================================//
 						/****************

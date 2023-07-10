@@ -16,6 +16,9 @@ private:
 	
 	bool FileOpen()
 	{
+		if (fPTR)
+			fclose(fPTR);
+
 		if(m_szFileName==NULL)
 			return false;
 		
@@ -49,7 +52,10 @@ public:
 		fPTR = NULL;
 	}
 	~CFileIO()
-	{}
+	{
+		if (fPTR)
+			fclose(fPTR);
+	}
 	void ShutFile()
 	{
 		//get new file OFFSET
@@ -57,6 +63,7 @@ public:
 		m_lFileOFFSET = ftell(fPTR);
 		//close file and return line
 		fclose(fPTR);
+		fPTR = NULL;
 	}
 	//open a file for reading or writing
 	bool GetFile(char* filename,char* ReadMode )
@@ -71,6 +78,7 @@ public:
 		fseek(fPTR,0,SEEK_SET);
 		m_lFileOFFSET=ftell(fPTR);
 		fclose(fPTR);
+		fPTR = NULL;
 
 		return true;
 	}
@@ -95,6 +103,8 @@ public:
 
 		//close file and return line
 		fclose(fPTR);
+		fPTR = NULL;
+		
 		return m_szLine;
 	}
 
@@ -123,6 +133,8 @@ public:
 		}
 		m_lFileOFFSET=0;
 		fclose(fPTR);
+		fPTR = NULL;
+		
 		return NULL;
 	}
 
@@ -137,6 +149,7 @@ public:
 		m_lFileOFFSET = ftell(fPTR);
 		//close file and return line
 		fclose(fPTR);
+		fPTR = NULL;
 
 		return true;
 	}
@@ -173,7 +186,8 @@ template <class T> inline void littleBigEndian (T *x) {
 		m_lFileOFFSET = ftell(fPTR);
 		//close file and return line
 		fclose(fPTR);
-
+		fPTR = NULL;
+		
 		return true;
 	}
 	template<class T>
@@ -198,14 +212,17 @@ template <class T> inline void littleBigEndian (T *x) {
 		m_lFileOFFSET = ftell(fPTR);
 		//close file and return line
 		fclose(fPTR);
+		fPTR = NULL;
 
 		return true;
 	}
 	template<class T>
 	bool ReadBinary(T* data)
 	{
-		if(!FileOpen())
-			return NULL;//cant open file
+		if (!fPTR) {
+			if(!FileOpen())
+				return NULL;//cant open file
+		}
 
 		fseek(fPTR,m_lFileOFFSET,SEEK_SET);//move to file offset
 		fread(data,sizeof(T),1,fPTR);//write the line
@@ -213,7 +230,7 @@ template <class T> inline void littleBigEndian (T *x) {
 		fseek(fPTR,0,SEEK_CUR);
 		m_lFileOFFSET = ftell(fPTR);
 		//close file and return line
-		fclose(fPTR);
+		//fclose(fPTR);
 #ifdef AMIGAOS4
 		littleBigEndian(data);
 #endif
@@ -223,16 +240,18 @@ template <class T> inline void littleBigEndian (T *x) {
 	template<class T>
 	bool ReadBinary(T* data, int size)
 	{
-		if(!FileOpen())
-			return NULL;//cant open file
-
+		if (!fPTR) {
+			if(!FileOpen())
+				return NULL;//cant open file
+		}
+		
 		fseek(fPTR,m_lFileOFFSET,SEEK_SET);//move to file offset
 		fread(data,sizeof(T),size,fPTR);//write the line
 		//get new file OFFSET
 		fseek(fPTR,0,SEEK_CUR);
 		m_lFileOFFSET = ftell(fPTR);
 		//close file and return line
-		fclose(fPTR);
+		//fclose(fPTR);
 #ifdef AMIGAOS4
 		for(int i=0; i<size; ++i)
 			littleBigEndian(data+i);
