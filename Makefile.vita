@@ -1,7 +1,10 @@
 TARGET		:= Prototype
 TITLE		:= PROTOTYPE
 
-LIBS	:= -lSDL2_Mixer -lSDL2 -lSDL2_Net -lvitaGL -lvitashark -lmathneon -lSceShaccCgExt -lSceShaccCg_stub \
+PKG_CONFIG = arm-vita-eabi-pkg-config
+SDL_LIBS := $(shell $(PKG_CONFIG) --static --libs SDL2_mixer SDL2_net)
+
+LIBS	:= $(SDL_LIBS) -lvitaGL -lvitashark -lmathneon -lSceShaccCgExt -lSceShaccCg_stub \
 	-lvorbisfile -lvorbis -logg -lpthread -lSceAudio_stub -lSceAudioIn_stub -lSceHid_stub -lz -lScePower_stub \
 	-lmpg123 -lmikmod -lFLAC -ltaihen_stub -lSceNetCtl_stub \
 	-lSceAppMgr_stub -lSceCommonDialog_stub -lSceCtrl_stub -lSceGxm_stub -lSceMotion_stub -lSceNet_stub \
